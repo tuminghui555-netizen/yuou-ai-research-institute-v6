@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="运营用大白话提需求，主图、海报、活动图、详情页都能出，保持品牌视觉一致性。">
+  <title>AI 视觉设计｜上新，不再等设计排期</title>
+  <style>
+    :root {
+      --color-primary: #175cd3;
+      --color-primary-dark: #124a9f;
+      --color-accent: #c2670a;
+      --color-text: #172033;
+      --color-muted: #556174;
+      --color-line: #dfe4eb;
+      --color-soft: #f5f7fa;
+      --color-white: #fff;
+      --content-max: 1200px;
+      --page-gutter: 32px;
+      --section-gap: 96px;
+      --grid-gap: 24px;
+      --media-gap: 16px;
+      --radius: 16px;
+      --card-padding: 24px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--color-text);
+      background: var(--color-white);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { line-height: 1.25; letter-spacing: -.02em; }
+    p { color: var(--color-muted); }
+    :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+
+    .container {
+      width: min(100%, var(--content-max));
+      margin-inline: auto;
+      padding-inline: var(--page-gutter);
+    }
+    .section { margin-top: var(--section-gap); scroll-margin-top: 24px; }
+    .section-heading { max-width: 760px; margin-bottom: 32px; }
+    .section-heading h2 { font-size: 34px; }
+    .section-heading p { margin-top: 12px; font-size: 17px; }
+    .section-split {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+      align-items: center;
+    }
+    .section-copy { grid-column: span 5; min-width: 0; }
+    .section-media { grid-column: span 7; min-width: 0; }
+    .section-split.is-reverse .section-copy { grid-column: 8 / span 5; grid-row: 1; }
+    .section-split.is-reverse .section-media { grid-column: 1 / span 7; grid-row: 1; }
+    .feature-name {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--color-primary);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .section-copy h2 { font-size: 32px; margin-bottom: 16px; }
+    .section-copy p { font-size: 17px; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-primary);
+      border-radius: 10px;
+      padding: 11px 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: center;
+      text-decoration: none;
+    }
+    .button-primary { color: var(--color-white); background: var(--color-primary); }
+    .button-primary:hover { background: var(--color-primary-dark); }
+    .button-secondary { color: var(--color-primary); background: var(--color-white); }
+    .button-note { margin-top: 10px; font-size: 14px; }
+
+    .hero { padding-top: 72px; }
+    .hero .section-copy { align-self: center; }
+    .hero h1 { max-width: 470px; font-size: 52px; letter-spacing: -.045em; }
+    .hero-subtitle { margin-top: 22px; font-size: 19px; line-height: 1.8; }
+    .hero-proof {
+      margin-top: 18px;
+      padding-left: 14px;
+      border-left: 3px solid var(--color-accent);
+      color: var(--color-text);
+      font-size: 15px;
+      font-weight: 650;
+    }
+    .hero-compare {
+      display: grid;
+      grid-template-columns: minmax(0, .82fr) 28px minmax(0, 1.35fr);
+      gap: 12px;
+      align-items: end;
+    }
+    .hero-item { min-width: 0; }
+    .media-label { margin-bottom: 10px; color: var(--color-muted); font-size: 14px; font-weight: 650; }
+    .media-frame {
+      overflow: hidden;
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius);
+      background: var(--color-white);
+    }
+    .media-frame img { width: 100%; height: auto; }
+    .hero-original .media-frame { background: var(--color-soft); }
+    .hero-original img { height: 420px; object-fit: contain; }
+    .hero-result img { height: auto; }
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      color: var(--color-primary);
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .diagram-card {
+      position: relative;
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius);
+      background: var(--color-white);
+    }
+    .diagram-badge {
+      position: absolute;
+      z-index: 2;
+      top: 12px;
+      right: 12px;
+      border: 1px solid var(--color-line);
+      border-radius: 6px;
+      padding: 2px 9px;
+      color: var(--color-muted);
+      background: var(--color-white);
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.6;
+    }
+    .panorama { aspect-ratio: 16 / 6; padding: 52px 24px 24px; }
+    .panorama-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 42px;
+      height: 100%;
+      align-items: stretch;
+    }
+    .flow-step {
+      position: relative;
+      min-width: 0;
+      border: 1px solid var(--color-line);
+      border-radius: 12px;
+      padding: 18px 16px;
+      background: var(--color-white);
+    }
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 46%;
+      right: -35px;
+      width: 28px;
+      color: var(--color-primary);
+      font-size: 25px;
+      text-align: center;
+    }
+    .flow-step.is-branch { border-style: dashed; }
+    .flow-step.is-branch::before {
+      content: "需要精修的";
+      position: absolute;
+      top: -31px;
+      left: 50%;
+      width: max-content;
+      transform: translateX(-50%);
+      color: var(--color-accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .flow-step h3 { min-height: 48px; font-size: 17px; letter-spacing: 0; }
+    .flow-product { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; margin-top: 16px; }
+    .flow-product img { width: 64px; height: 108px; object-fit: contain; }
+    .flow-product span { color: var(--color-muted); font-size: 14px; line-height: 1.6; }
+    .flow-generated { margin-top: 16px; }
+    .flow-generated img { width: 100%; height: 108px; object-fit: cover; object-position: top; border-radius: 8px; }
+    .flow-generated span { display: block; margin-top: 7px; color: var(--color-muted); font-size: 13px; }
+    .mini-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+    .mini-card { border: 1px solid var(--color-line); border-radius: 8px; padding: 9px 6px; color: var(--color-muted); background: var(--color-soft); font-size: 13px; text-align: center; }
+    .archive-visual { display: flex; gap: 12px; align-items: center; margin-top: 28px; }
+    .archive-visual img { width: 82px; height: 82px; object-fit: cover; border-radius: 8px; }
+    .folder {
+      position: relative;
+      width: 98px;
+      height: 70px;
+      border: 2px solid var(--color-primary);
+      border-radius: 8px;
+      background: var(--color-soft);
+    }
+    .folder::before { content: ""; position: absolute; top: -12px; left: 10px; width: 38px; height: 12px; border: 2px solid var(--color-primary); border-bottom: 0; border-radius: 6px 6px 0 0; background: var(--color-soft); }
+    .archive-visual span { color: var(--color-muted); font-size: 13px; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .capability-card {
+      min-height: 168px;
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius);
+      padding: var(--card-padding);
+      background: var(--color-white);
+      text-decoration: none;
+      transition: border-color .18s ease, transform .18s ease;
+    }
+    .capability-card:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+    .capability-card h3 { font-size: 20px; }
+    .capability-card p { margin-top: 12px; font-size: 15px; line-height: 1.65; }
+    .capability-card .card-arrow { display: block; margin-top: 14px; color: var(--color-primary); font-size: 15px; font-weight: 650; line-height: 1; }
+
+    .media-stack { display: grid; gap: 16px; }
+    .media-item { min-width: 0; }
+    .media-stack > .flow-arrow { height: 22px; }
+    .compare-40-60 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 16px; }
+    .compare-40-60 .media-frame { height: 410px; display: flex; align-items: center; justify-content: center; }
+    .compare-40-60 img { width: 100%; height: 100%; object-fit: contain; }
+    .detail-triptych img { width: 100%; }
+    .designer-media img { width: 100%; }
+
+    .management-media { display: grid; gap: 16px; }
+
+    .evidence-quote { max-width: 800px; font-size: 20px; line-height: 1.8; color: var(--color-text); }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 640px; margin: 32px auto 0; text-align: center; }
+    .metric-card { border: 1px solid var(--color-line); border-radius: var(--radius); padding: 24px; background: var(--color-white); }
+    .metric-card strong { display: block; color: var(--color-accent); font-size: 30px; line-height: 1.3; }
+    .metric-card span { display: block; margin-top: 8px; color: var(--color-muted); font-size: 14px; }
+    .evidence-images { display: grid; grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr); gap: 16px; align-items: center; max-width: 900px; margin: 32px auto 0; }
+    .evidence-images img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .evidence-images .flow-arrow { font-size: 32px; }
+
+    .contact-section { margin-top: var(--section-gap); padding: 64px 0 72px; border-top: 1px solid var(--color-line); text-align: center; }
+    .contact-section h2 { font-size: 34px; }
+    .contact-section img { width: 184px; height: 184px; margin: 28px auto 16px; border-radius: 8px; }
+    .contact-section p { color: var(--color-text); font-size: 15px; font-weight: 650; }
+
+    @media (max-width: 1000px) and (min-width: 769px) {
+      .hero h1 { font-size: 43px; }
+      .hero-original img { height: 350px; }
+      .section-copy h2 { font-size: 28px; }
+      .panorama { aspect-ratio: auto; }
+      .panorama-grid { gap: 30px; }
+      .flow-step { padding: 14px 12px; }
+      .flow-step:not(:last-child)::after { right: -29px; }
+      .flow-product { grid-template-columns: 48px 1fr; }
+      .flow-product img { width: 48px; }
+      .compare-40-60 .media-frame { height: 330px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --page-gutter: 20px; --section-gap: 64px; --card-padding: 16px; }
+      .section-heading { margin-bottom: 24px; }
+      .section-heading h2 { font-size: 28px; }
+      .section-heading p { font-size: 16px; }
+      .section-split { grid-template-columns: 1fr; row-gap: 28px; }
+      .section-copy,
+      .section-split.is-reverse .section-copy { grid-column: 1; grid-row: 1; }
+      .section-media,
+      .section-split.is-reverse .section-media { grid-column: 1; grid-row: 2; }
+      .section-copy h2 { font-size: 28px; margin-bottom: 12px; }
+      .section-copy p { font-size: 16px; }
+      .hero { padding-top: 40px; }
+      .hero h1 { max-width: none; font-size: 38px; }
+      .hero-subtitle { margin-top: 18px; font-size: 17px; }
+      .button-row { flex-direction: column; flex-wrap: nowrap; }
+      .button { width: 100%; }
+      .hero-compare { grid-template-columns: 1fr; gap: 12px; }
+      .hero-compare > .flow-arrow { transform: rotate(90deg); height: 24px; }
+      .hero-original { max-width: 260px; width: 100%; margin-inline: auto; }
+      .hero-original img { height: 360px; }
+      .panorama { aspect-ratio: auto; padding: 48px 16px 16px; }
+      .panorama-grid { grid-template-columns: 1fr; gap: 42px; }
+      .flow-step { padding: 18px; }
+      .flow-step:not(:last-child)::after { content: "↓"; top: auto; bottom: -36px; right: 50%; transform: translateX(50%); }
+      .flow-step.is-branch::before { top: -30px; }
+      .flow-step h3 { min-height: 0; }
+      .flow-product { grid-template-columns: 80px 1fr; }
+      .flow-product img { width: 80px; height: 124px; }
+      .flow-generated img { height: 160px; }
+      .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .capability-card { min-height: 190px; }
+      .capability-card h3 { font-size: 17px; overflow-wrap: anywhere; }
+      .capability-card p { font-size: 14px; }
+      .compare-40-60 { grid-template-columns: 1fr; }
+      .compare-40-60 .media-frame { height: auto; }
+      .compare-40-60 img { height: auto; }
+      .desktop-only { display: none; }
+      .metric-grid { gap: 10px; margin-top: 24px; }
+      .metric-card { padding: 16px 12px; }
+      .metric-card strong { font-size: 22px; }
+      .metric-card span { font-size: 13px; line-height: 1.55; }
+      .evidence-quote { font-size: 18px; }
+      .evidence-images { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 8px; margin-top: 24px; }
+      .evidence-images .media-label { font-size: 13px; }
+      .contact-section { padding: 48px 0 56px; }
+      .contact-section h2 { font-size: 28px; }
+    }
+
+    @media (max-width: 420px) {
+      .evidence-images { grid-template-columns: 1fr; }
+      .evidence-images .flow-arrow { transform: rotate(90deg); }
+    }
+
+    @media (max-width: 360px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .capability-card { min-height: 0; }
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+
+    .site-header {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid var(--color-line);
+      background: rgba(255, 255, 255, .96);
+    }
+    .nav-shell { display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; min-height: 72px; }
+    .brand { display: flex; gap: 12px; align-items: baseline; text-decoration: none; white-space: nowrap; }
+    .brand-name { font-size: 15px; font-weight: 750; }
+    .brand-product { color: var(--color-muted); font-size: 12px; }
+    .anchor-nav { display: flex; gap: 18px; justify-content: center; min-width: 0; }
+    .anchor-nav a { color: var(--color-muted); font-size: 13px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+    .anchor-nav a:hover { color: var(--color-primary); }
+    .nav-contact { border-radius: 9px; padding: 8px 16px; color: var(--color-white); background: var(--color-primary); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .section { scroll-margin-top: 104px; }
+    .hero { padding-top: 48px; }
+    .hero .section-copy { grid-column: span 6; }
+    .hero .section-media { grid-column: span 6; }
+    .product-kicker { margin-bottom: 12px; color: var(--color-primary); font-size: 15px; font-weight: 750; letter-spacing: .06em; }
+    .hero h1 { max-width: none; font-size: 44px; white-space: nowrap; }
+    .ai-image-section { align-items: start; }
+    .ai-image-section .section-copy { grid-column: 1 / -1; max-width: 780px; }
+    .ai-image-section .section-media { grid-column: 1 / -1; grid-row: 2; margin-top: 28px; }
+    .compare-40-60 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .compare-40-60 .media-frame { height: auto; }
+    .compare-40-60 img { height: auto; }
+    .contact-hint { margin-top: 12px; font-size: 15px; }
+    .contact-section img { margin-top: 16px; }
+    .contact-company { margin-top: 8px; color: var(--color-muted); font-size: 13px; font-weight: 400; }
+    .mobile-hint { display: none; }
+
+    @media (max-width: 1000px) and (min-width: 769px) {
+      .nav-shell { gap: 16px; }
+      .brand-product { display: none; }
+      .anchor-nav { gap: 12px; }
+      .hero h1 { font-size: 36px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-shell { grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; min-height: 0; padding-top: 12px; }
+      .brand { grid-column: 1; grid-row: 1; gap: 8px; }
+      .brand-name { font-size: 14px; }
+      .brand-product { font-size: 11px; }
+      .nav-contact { grid-column: 2; grid-row: 1; justify-self: end; padding: 7px 13px; }
+      .anchor-nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: 20px; overflow-x: auto; padding: 3px 0 12px; scrollbar-width: none; }
+      .anchor-nav::-webkit-scrollbar { display: none; }
+      .section { scroll-margin-top: 130px; }
+      .hero { padding-top: 36px; }
+      .hero .section-copy { grid-column: 1; grid-row: 1; }
+      .hero .section-media { grid-column: 1; grid-row: 2; }
+      .hero h1 { font-size: 38px; white-space: normal; }
+      .ai-image-section .section-copy { grid-column: 1; grid-row: 1; }
+      .ai-image-section .section-media { grid-column: 1; grid-row: 2; margin-top: 0; }
+      .compare-40-60 { grid-template-columns: 1fr; }
+      .panorama { aspect-ratio: auto; padding: 48px 16px 16px; }
+      .panorama-grid { grid-template-columns: 1fr; gap: 42px; }
+      .flow-step { padding: 18px; }
+      .flow-step:not(:last-child)::after { display: block; content: "↓"; top: auto; bottom: -36px; right: 50%; transform: translateX(50%); }
+      .flow-step.is-branch::before { top: -30px; right: auto; left: 50%; transform: translateX(-50%); font-size: 12px; }
+      .flow-step.is-branch h3 { margin-top: 0; }
+      .flow-step h3 { min-height: 0; font-size: 17px; }
+      .flow-product { grid-template-columns: 64px 1fr; gap: 12px; margin-top: 16px; }
+      .flow-product img { width: 64px; height: 108px; }
+      .flow-product span { font-size: 14px; }
+      .flow-generated { margin-top: 16px; }
+      .flow-generated img { height: 130px; }
+      .flow-generated span { font-size: 13px; }
+      .mini-card-grid { gap: 8px; margin-top: 16px; }
+      .mini-card { padding: 9px 6px; font-size: 13px; }
+      .archive-visual { flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+      .archive-visual img { width: 82px; height: 82px; }
+      .archive-visual .folder { width: 72px; height: 52px; }
+      .archive-visual span { font-size: 13px; }
+      #detail-page .media-stack > .flow-arrow,
+      #detail-page .detail-triptych { display: none; }
+      .desktop-hint { display: none; }
+      .mobile-hint { display: inline; }
+      .contact-company { font-size: 12px; }
+    }
+
+    .hero-original .media-frame,
+    .hero-result .media-frame { height: 420px; display: flex; align-items: center; justify-content: center; }
+    .hero-original img,
+    .hero-result img { width: 100%; height: 100%; object-fit: contain; }
+    .hero-proof { font-size: 11.5px; line-height: 1.9; letter-spacing: -.03em; white-space: nowrap; }
+    .feature-points { margin: 20px 0 0; padding: 0; list-style: none; }
+    .feature-points li { position: relative; margin-top: 10px; padding-left: 23px; color: var(--color-muted); font-size: 15px; line-height: 1.65; }
+    .feature-points li::before { content: "✓"; position: absolute; left: 0; color: var(--color-primary); font-weight: 800; }
+    .ai-image-section .feature-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .ai-image-section .feature-points li { margin-top: 0; }
+    #brand .compare-40-60 { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: center; }
+    #brand .media-item:last-child { width: 100%; max-width: 280px; justify-self: center; }
+    .evidence-images { display: block; max-width: 1100px; }
+    .evidence-images img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
+
+    @media (max-width: 768px) {
+      .nav-shell { position: relative; }
+      .nav-shell::after { content: ""; position: absolute; right: 0; bottom: 0; width: 44px; height: 40px; background: linear-gradient(to right, rgba(255,255,255,0), var(--color-white)); pointer-events: none; }
+      .anchor-nav a:last-child { padding-right: 44px; }
+      .hero-proof { font-size: 13px; white-space: normal; }
+      .hero-result .media-frame { height: auto; }
+      .hero-result img { height: auto; }
+      .ai-image-section .feature-points { grid-template-columns: 1fr; gap: 0; }
+      .ai-image-section .feature-points li { margin-top: 10px; }
+      #brand .compare-40-60 { grid-template-columns: 1fr; }
+      #brand .media-item:last-child { max-width: 300px; }
+      .evidence-images { margin-top: 24px; }
+    }
+
+
+    /* 排版第三轮 */
+    .panorama { aspect-ratio: auto; padding: 24px; }
+    .panorama-grid { height: auto; }
+    .flow-step { display: flex; flex-direction: column; padding: 16px; }
+    .flow-step h3 { min-height: 48px; }
+    .flow-thumb { margin-top: 12px; height: 180px; border-radius: 8px; overflow: hidden; background: var(--color-soft); }
+    .flow-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+    .flow-thumb img[src*="01_首屏_商品原图"] { object-fit: contain; object-position: center; }
+    .flow-caption { display: block; margin-top: 8px; color: var(--color-muted); font-size: 13px; }
+    .flow-step.is-branch::before { top: -23px; }
+    .stacked-media { display: grid; gap: 14px; align-content: start; }
+    .stacked-media .media-frame img { width: 100%; height: auto; }
+    .stacked-media .media-item:last-child { width: 100%; max-width: 360px; justify-self: center; }
+    .stacked-media > .flow-arrow { height: 24px; }
+    #ai-image, #brand { align-items: center; }
+    #ai-image .feature-points, #brand .feature-points { display: block; }
+    #ai-image .feature-points li, #brand .feature-points li { margin-top: 10px; }
+    #designer-refine .section-copy { grid-column: 9 / span 4; }
+    #designer-refine .section-media { grid-column: 1 / span 8; }
+    #designer-refine .media-frame img { width: 100%; height: auto; }
+    @media (max-width: 1000px) and (min-width: 769px) {
+      .flow-thumb { height: 140px; }
+    }
+    @media (max-width: 768px) {
+      .panorama { padding: 48px 16px 16px; }
+      .flow-thumb { height: 200px; }
+      #ai-image .section-copy, #brand .section-copy,
+      #designer-refine .section-copy { grid-column: 1; grid-row: 1; }
+      #ai-image .section-media, #brand .section-media,
+      #designer-refine .section-media { grid-column: 1; grid-row: 2; }
+      .stacked-media .media-item:first-child .media-frame,
+      #designer-refine .media-frame { overflow-x: auto; }
+      .stacked-media .media-item:first-child .media-frame img,
+      #designer-refine .media-frame img { width: 640px; max-width: none; }
+    }
+
+    /* 第四轮改动 */
+    .flow-thumb.is-text { display: flex; align-items: center; background: var(--color-white); border: 1px solid var(--color-line); }
+    .flow-thumb.is-text img { height: auto; object-fit: contain; object-position: left center; }
+    .brand-pair .media-label { margin-bottom: 10px; }
+    .pair-row { display: flex; gap: 16px; align-items: flex-start; }
+    .pair-a { flex: 1.25 1 0; min-width: 0; }
+    .pair-b { flex: .568 1 0; min-width: 0; }
+    .pair-item .media-frame img { width: 100%; height: auto; }
+    .dispatch-frame { width: min(100%, 620px); margin-inline: auto; }
+    .dispatch-frame img { width: 100%; height: auto; }
+    .kv-scroll { display: none; }
+    @media (max-width: 768px) {
+      #ai-image .media-item:first-child .media-frame { overflow: hidden; }
+      #ai-image .media-item:first-child .media-frame img { width: 100%; max-width: 100%; }
+      .kv-single { display: none; }
+      .kv-scroll { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; margin-right: calc(var(--page-gutter) * -1); padding-right: var(--page-gutter); }
+      .kv-card { flex: 0 0 80%; scroll-snap-align: start; border: 1px solid var(--color-line); border-radius: var(--radius); overflow: hidden; }
+      .kv-card img { width: 100%; height: auto; }
+      .pair-row { gap: 10px; }
+      .metric-grid { max-width: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .capability-card { transition: none; }
+    }
+  </style>
+<link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/legacy-shell.css"><script src="assets/site.js" defer=""></script><link rel="stylesheet" href="assets/product-story.css"><script src="assets/product-story.js" defer=""></script><link rel="stylesheet" href="assets/研究院.css"></head>
+<body data-page="visual" class="legacy-page">
+  <a class="skip-link" href="#main">跳到正文</a><header class="global-header"><div class="wrap global-nav"><a class="global-brand" href="index.html" aria-label="渝欧数智 AI 应用研究院首页"><img src="assets/home/logo-nav.png" alt="渝欧数智" width="603" height="71"><span>AI 应用研究院</span></a><nav class="global-links" id="global-links" aria-label="主导航"><div class="solution-menu"><button class="solution-toggle" aria-expanded="false" aria-controls="solution-dropdown">解决方案<span class="chevron" aria-hidden="true">⌄</span></button><div class="solution-dropdown" id="solution-dropdown" hidden=""><a href="ai-org.html"><b>AI 原生组织</b><span>让 AI 能力留在组织，靠企业自己持续推进。</span></a><a href="ecommerce.html"><b>AI 电商运营</b><span>看清生意，及时发现问题，复制好做法</span></a><a href="service.html"><b>AI 客服管理</b><span>把客服表现、服务质量和绩效管理连起来</span></a><a href="visual.html"><b>AI 视觉设计</b><span>从一句需求，到视觉成稿与团队协作</span></a><a href="content.html"><b>AI 内容生产</b><span>让小团队持续做出内容</span></a><a href="geo.html"><b>AI 搜索优化（GEO）</b><span>提升品牌在 AI 搜索与回答中的可见度</span></a></div></div><a href="#ai-image">AI 作图</a><a href="#brand">品牌规范</a><div class="global-controls mobile-actions"><button class="btn small secondary" data-offer="visual">免费体验</button><button class="btn small" data-contact="">联系我们</button></div></nav><a class="guide-entry" data-manual-entry="visual" href="manual-visual.html">产品手册</a><div class="global-controls desktop-actions"><button class="btn small secondary" data-offer="visual">免费体验</button><button class="btn small" data-contact="">联系我们</button></div><button class="mobile-toggle" aria-expanded="false" aria-controls="global-links" aria-label="打开或关闭导航菜单">☰</button></div></header>
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="section-split">
+        <div class="section-copy">
+          <p class="product-kicker">AI 视觉设计</p>
+          <h1 id="hero-title">上新，不再等设计排期。</h1>
+          <p class="hero-subtitle">运营用大白话提需求，主图、海报、活动图、详情页都能出，保持品牌视觉一致性。</p>
+          <p class="hero-proof">渝欧集团（股票代码 873017）的设计团队每天在用<br>天维美、爱他美、美赞臣、清风、法优乐等品牌的主图和海报，都从这里出<br>人效提升 400% 以上，单图综合成本降低 80%</p>
+          <div class="button-row">
+            <a class="button button-primary" href="#contact" data-offer="visual">免费做一版《电商对比稿》</a>
+            <a class="button button-secondary" href="#capabilities">看看能做哪些图</a>
+          </div>
+          <p class="button-note">给一张产品图，当天出一版。</p>
+        </div>
+        <div class="section-media hero-compare">
+          <div class="hero-item hero-original">
+            <p class="media-label">商品原图</p>
+            <div class="media-frame"><img src="assets/visual/01_首屏_商品原图.png" alt="天维美镁片商品原图" width="720" height="1081"></div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="hero-item hero-result">
+            <p class="media-label">成图</p>
+            <div class="media-frame"><img src="assets/visual/01_首屏_成图.jpg" alt="同一商品的品牌营销成图" width="1200" height="960"></div>
+          </div>
+        </div>
+      </div>
+    </section><section class="section wrap product-form" id="panorama" aria-labelledby="product-form-title"><div class="form-intro"><p class="eyebrow">你拿到什么，怎么用</p><h2 id="product-form-title">把出图流程配给你的运营和设计。</h2><p>品牌规范和需求模板配好后，运营用日常语言提需求、出候选图；需要精修的，连同素材和修改记录交给设计师。你也可以只提需求，由我们交设计成品。</p></div><div class="form-options" style="--choices:3"><a class="form-option" href="#ai-image"><span class="form-kind">自己出图</span><h3>把工具和品牌规则交给团队</h3><p>配置 AI 作图、详情页和选定的协作流程，让运营、设计在工作里用。</p><span class="form-next">继续看怎么做 ↗</span></a><a class="form-option" href="#design-results"><span class="form-kind">直接拿成品</span><h3>给需求，我们交设计图</h3><p>提供产品图、文案和品牌素材，确认方向后，按需求清单交设计成果。</p><span class="form-next">看看交付的设计图 ↗</span></a><a class="form-option" href="#designer-refine"><span class="form-kind">带人跑起来</span><h3>用一条真实需求一起做</h3><p>带运营和设计配置、试跑、核对成果，交接后由你的人继续用。</p><span class="form-next">继续看怎么做 ↗</span></a></div><div class="form-links"><a href="#ai-image">看作图 ↗</a><a href="#detail-page">看详情页 ↗</a><a href="#design-management">看设计协作 ↗</a></div><div class="work-demo" aria-label="一款产品的上新图，怎样从需求走到交付？"><div class="work-demo-head"><div><h3>一款产品的上新图，怎样从需求走到交付？</h3><p>同一个商品，从产品原图到品牌候选图，再到精修成稿。每一步都有上一环节留下的材料。</p></div><span class="work-demo-label">工作示例 · 点步骤查看</span></div><div class="work-demo-body"><div class="work-steps" role="group" aria-label="工作步骤"><button class="work-step" type="button" id="work-step-0" aria-pressed="true" aria-controls="work-pane-0"><span>1</span><span><b>给素材</b><small>你的运营</small></span></button><button class="work-step" type="button" id="work-step-1" aria-pressed="false" aria-controls="work-pane-1"><span>2</span><span><b>按品牌出图</b><small>AI 按规则生成</small></span></button><button class="work-step" type="button" id="work-step-2" aria-pressed="false" aria-controls="work-pane-2"><span>3</span><span><b>确认方向</b><small>你的负责人</small></span></button><button class="work-step" type="button" id="work-step-3" aria-pressed="false" aria-controls="work-pane-3"><span>4</span><span><b>需要精修</b><small>设计师接手</small></span></button><button class="work-step" type="button" id="work-step-4" aria-pressed="false" aria-controls="work-pane-4"><span>5</span><span><b>交付与复用</b><small>你的团队</small></span></button></div><div class="work-panes" aria-live="polite"><div class="work-pane" id="work-pane-0" aria-labelledby="work-step-0"><span class="work-actor">你的运营</span><h4>产品图、卖点和用途先说清</h4><p>提供产品原图、确认过的文案、品牌素材、参考图和常用尺寸。</p><div class="work-result"><small>进入流程</small><p>一份包含素材、用途和尺寸的设计需求。</p></div><p class="work-return">下一步：按品牌出图</p></div><div class="work-pane" id="work-pane-1" aria-labelledby="work-step-1" hidden=""><span class="work-actor">AI 按规则生成</span><h4>先按品牌规范做候选方向</h4><p>Logo、包装和风格参考进入品牌规则，AI 根据这次需求生成营销物料或详情页方向。</p><div class="work-result"><small>可以挑选</small><p>主图、海报等候选图；详情页先选视觉方向。</p></div><p class="work-return">下一步：确认方向</p></div><div class="work-pane" id="work-pane-2" aria-labelledby="work-step-2" hidden=""><span class="work-actor">你的负责人</span><h4>先核产品和文案，再定视觉方向</h4><p>你确认产品、卖点、画面与尺寸是否合适，提出需要调整的位置。</p><div class="work-result"><small>下一步依据</small><p>选定的候选图和明确的修改意见。</p></div><p class="work-return">下一步：需要精修</p></div><div class="work-pane" id="work-pane-3" aria-labelledby="work-step-3" hidden=""><span class="work-actor">设计师接手</span><h4>带着材料交接，不用从头讲</h4><p>需求、产品素材、候选图和修改记录一起进入提单，设计师接住精修。</p><div class="work-result"><small>协作留下</small><p>接手人、排期、修改记录与精修稿。</p></div><p class="work-return">下一步：交付与复用</p></div><div class="work-pane" id="work-pane-4" aria-labelledby="work-step-4" hidden=""><span class="work-actor">你的团队</span><h4>成图确认后归档，下一次接着用</h4><p>确认后的成图统一归档，品牌规则持续复用；选了需求管理的，还能查看派单、排期与费用归属。</p><div class="work-result"><small>最终拿到</small><p>能使用的设计成品，以及团队能持续执行的出图流程。</p></div><p class="work-return">这些结果会进入后续工作，继续使用和改进。</p></div></div></div></div></section>
+
+    
+
+    <section class="section container" id="capabilities" aria-labelledby="capabilities-title">
+      <div class="section-heading"><h2 id="capabilities-title">能力总览</h2></div>
+      <div class="card-grid">
+        <a class="capability-card" href="#ai-image"><h3>AI 作图</h3><p>大白话提需求，营销物料一次做齐</p><span class="card-arrow">查看详情 ↓</span></a>
+        <a class="capability-card" href="#brand"><h3>品牌规范</h3><p>配一次，保持品牌视觉一致性</p><span class="card-arrow">查看详情 ↓</span></a>
+        <a class="capability-card" href="#detail-page"><h3>AI 详情页</h3><p>三版 KV 选方向，再做整页</p><span class="card-arrow">查看详情 ↓</span></a>
+        <a class="capability-card" href="#designer-refine"><h3>设计师精修</h3><p>需求和修改记录一起提单</p><span class="card-arrow">查看详情 ↓</span></a>
+        <a class="capability-card" href="#image-layers"><h3>图片分层</h3><p>文字、元素和局部构图能改</p><span class="card-arrow">查看详情 ↓</span></a>
+        <a class="capability-card" href="#design-management"><h3>设计需求管理</h3><p>统一管需求、派单、排期和费用</p><span class="card-arrow">查看详情 ↓</span></a>
+      </div>
+    </section>
+
+    <section class="section container section-split" id="ai-image" aria-labelledby="ai-image-title">
+      <div class="section-copy">
+        <span class="feature-name">AI 作图</span>
+        <h2 id="ai-image-title">大白话提需求，营销物料一次做齐。</h2>
+        <p>不用学提示词，运营自己也能出图。</p>
+        <ul class="feature-points">
+          <li>主图、海报、banner、KV 都能出</li>
+          <li>已有图能改文案、改产品数量</li>
+          <li>批量出图，单图综合成本降低 80%</li>
+        </ul>
+      </div>
+      <div class="section-media stacked-media">
+        <div class="media-item"><p class="media-label">一句话需求</p><div class="media-frame"><picture><source media="(max-width: 768px)" srcset="assets/visual/11c_AI作图_需求句_分行.png"><img src="assets/visual/11b_AI作图_需求句.png" alt="用一句大白话写下的出图需求：将图1的产品及其卖点参考图2的产品及卖点版式布局进行重新创作，生成1000*1000px的电商主图" width="1080" height="56"></picture></div></div>
+        <div class="flow-arrow" aria-hidden="true">↓</div>
+        <div class="media-item"><p class="media-label">成图</p><div class="media-frame"><img src="assets/visual/11_AI作图_成图.jpg" alt="按一句话需求生成的抽纸电商主图" width="696" height="696"></div></div>
+      </div>
+    </section>
+
+    <section class="section container section-split" id="brand" aria-labelledby="brand-title">
+      <div class="section-copy">
+        <span class="feature-name">品牌规范</span>
+        <h2 id="brand-title">品牌规范配一次，怎么出都不走样。</h2>
+        <p>品牌规则存下来，之后出图一直复用。</p>
+        <ul class="feature-points">
+          <li>Logo、包装、风格参考都能读</li>
+          <li>品牌规范更新后同步过来</li>
+          <li>保持品牌视觉一致性</li>
+        </ul>
+      </div>
+      <div class="section-media brand-pair">
+        <p class="media-label">同一品牌，不同商品</p>
+        <div class="pair-row">
+          <div class="pair-item pair-a"><div class="media-frame"><img src="assets/visual/01_首屏_成图.jpg" alt="天维美镁片成图" width="1200" height="960"></div></div>
+          <div class="pair-item pair-b"><div class="media-frame"><img src="assets/visual/12_品牌规范_成图.jpg" alt="天维美桑叶成图" width="830" height="1460"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container section-split" id="detail-page" aria-labelledby="detail-title">
+      <div class="section-copy">
+        <span class="feature-name">AI 详情页</span>
+        <h2 id="detail-title">详情页先选方向，再做成整页。</h2>
+        <p>先选视觉方向，再做内页和整页。</p>
+        <ul class="feature-points">
+          <li>自动优化卖点、规划逐屏布局</li>
+          <li>三版 KV 给你选方向</li>
+          <li>新品和老页面都能做</li>
+        </ul>
+      </div>
+      <div class="section-media media-stack">
+        <div class="media-item"><p class="media-label">三版 KV</p><div class="media-frame kv-single"><img src="assets/visual/06_AI详情页_三版KV.png" alt="A、B、C 三版详情页首屏候选方向" width="1600" height="792"></div>
+          <div class="kv-scroll" aria-label="三版 KV，左右滑动查看">
+            <div class="kv-card"><img src="assets/visual/06b_三版KV_A.png" alt="A 版详情页首屏候选方向" width="504" height="792"></div>
+            <div class="kv-card"><img src="assets/visual/06b_三版KV_B.png" alt="B 版详情页首屏候选方向" width="504" height="792"></div>
+            <div class="kv-card"><img src="assets/visual/06b_三版KV_C.png" alt="C 版详情页首屏候选方向" width="504" height="792"></div>
+          </div></div>
+        <div class="flow-arrow" aria-hidden="true">↓</div>
+        <div class="media-item detail-triptych"><p class="media-label">整页</p><div class="media-frame"><picture><source media="(max-width: 768px)" srcset="assets/visual/06_AI详情页_整页三联_手机.jpg"><img src="assets/visual/06_AI详情页_整页三联.jpg" alt="详情页首屏、内页代表屏和规格尾屏" width="1510" height="566"></picture></div></div>
+      </div>
+    </section>
+
+    <section class="section container section-split is-reverse" id="designer-refine" aria-labelledby="designer-title">
+      <div class="section-copy">
+        <span class="feature-name">设计师精修</span>
+        <h2 id="designer-title">AI 生成，设计师精修。</h2>
+        <p>AI 生成，设计师精修，不用从头再讲。</p>
+        <ul class="feature-points">
+          <li>需求、素材和候选图一起提单</li>
+          <li>修改记录同步交给设计师</li>
+          <li>接手人、排期、精修稿都能查</li>
+        </ul>
+      </div>
+      <div class="section-media designer-media">
+        <div class="media-item"><p class="media-label">交给设计师的需求</p><div class="media-frame"><div class="clear-board"><div class="clear-board-head"><h4>一张精修需求单，把材料带齐</h4></div><div class="clear-row"><b>运营提交</b><p>产品图、确认过的文案、用途和尺寸。</p></div><div class="clear-row"><b>AI 留下</b><p>候选图、品牌规则和本轮修改记录。</p></div><div class="clear-row"><b>设计师接手</b><p>按明确的需求精修，回传稿件继续确认。</p></div><div class="clear-outcome"><b>接着做什么</b><span>精修稿确认后统一归档，下次还能复用。</span></div></div></div></div>
+      </div>
+    </section>
+
+    <section class="section container section-split" id="image-layers" aria-labelledby="layers-title">
+      <div class="section-copy">
+        <span class="feature-name">图片分层</span>
+        <h2 id="layers-title">成品图也能拆开接着改。</h2>
+        
+        <ul class="feature-points">
+          <li>按原图重建，可导出分层 PSD</li>
+          <li>文字能改，元素能移动</li>
+          <li>局部构图能调</li>
+        </ul>
+      </div>
+      <div class="section-media media-stack">
+        <div class="media-item"><p class="media-label">原图（左）与重建后的分层 PSD（右）：看着一样，文字和元素都能单独改</p><div class="media-frame"><img src="assets/visual/13_图片分层_对比.jpg" alt="同一张海报的原图与转成分层 PSD 后的对比" width="1113" height="722"></div></div>
+      </div>
+    </section>
+
+    <section class="section container section-split is-reverse" id="design-management" aria-labelledby="management-title">
+      <div class="section-copy">
+        <span class="feature-name">设计需求管理</span>
+        <h2 id="management-title">有设计团队，再把需求和费用管起来。</h2>
+        <p>适合有设计团队的公司。</p>
+        <ul class="feature-points">
+          <li>统一收集需求，自动派单</li>
+          <li>排期、产出和费用都能看</li>
+          <li>耗时和费用落到部门、店铺</li>
+        </ul>
+      </div>
+      <div class="section-media management-media">
+        <div class="media-item"><p class="media-label">派单通知</p><div class="media-frame dispatch-frame"><div class="clear-board"><div class="clear-board-head"><h4>一条设计需求，从提单到归档</h4></div><div class="clear-stage-list"><div class="clear-stage"><span>1</span><div><b>统一提需求</b><p>用途、素材、候选图和修改意见一起收。</p></div></div><div class="clear-stage"><span>2</span><div><b>派单与排期</b><p>需求交给接手人，优先级和排期可查看。</p></div></div><div class="clear-stage"><span>3</span><div><b>交付与核对</b><p>精修稿回传确认，工时和费用按规则记录。</p></div></div><div class="clear-stage"><span>4</span><div><b>成品归档</b><p>需求、过程和最终图留在一起。</p></div></div></div></div></div></div>
+      </div>
+    </section>
+
+    <section class="section container" id="design-results" aria-labelledby="evidence-title">
+      <div class="section-heading">
+        <h2 id="evidence-title">集团实战</h2>
+        <p class="evidence-quote">渝欧集团（股票代码 873017）的设计团队把这套流程用在天维美、爱他美、美赞臣、清风、法优乐等品牌的主图和海报上：AI 生成，设计师精修。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card"><strong>400% 以上</strong><span>人效提升</span></div>
+        <div class="metric-card"><strong>80%</strong><span>单图综合成本降低</span></div>
+      </div>
+      <div class="evidence-images">
+        <div class="media-item"><p class="media-label">爱他美、法优乐、美赞臣、天维美、清风</p><div class="media-frame"><picture><source media="(max-width: 768px)" srcset="assets/visual/16_集团实战_成图墙_手机.jpg"><img src="assets/visual/16_集团实战_成图墙.jpg" alt="六个品牌的真实成图：爱他美、法优乐、美赞臣、天维美、清风" width="1524" height="1012"></picture></div></div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 id="contact-title">联系我们获取报价</h2>
+        <p class="contact-hint"><span class="desktop-hint">微信扫码联系</span><span class="mobile-hint">长按识别二维码</span></p>
+        <img src="assets/visual/联系二维码_官网现用.jpg" alt="联系二维码" width="624" height="624">
+        <p>杨儒鸿｜渝欧数智 AI 应用研究院 负责人</p>
+        <p class="contact-company">重庆渝欧数智科技（集团）股份有限公司</p>
+      </div>
+    </section>
+  <section class="section wrap" id="other"><div class="section-head"><div><p class="eyebrow">其他方案</p><h2>还有哪些业务，可以先用起来？</h2></div></div><div class="other-grid"><a class="other-card" href="ai-org.html"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"></circle><circle cx="5" cy="18" r="2.5"></circle><circle cx="19" cy="18" r="2.5"></circle><path d="M12 9v4H5v2M12 13h7v2"></path></svg></span><div><b>AI 原生组织 →</b><p>让 AI 能力留在组织，靠企业自己持续推进。</p></div></a><a class="other-card" href="ecommerce.html"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18M4 15l5-5 4 3 7-8M15 5h5v5"></path></svg></span><div><b>AI 电商运营 →</b><p>看清生意，及时发现问题，复制好做法</p></div></a><a class="other-card" href="service.html"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v13H10l-5 4v-4H4zM8 9h8M8 13h5"></path></svg></span><div><b>AI 客服管理 →</b><p>把客服表现、服务质量和绩效管理连起来</p></div></a><a class="other-card" href="content.html"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="m10 9 5 3-5 3z"></path></svg></span><div><b>AI 内容生产 →</b><p>让小团队持续做出内容</p></div></a><a class="other-card" href="geo.html"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15 15 6 6M8 10h5"></path></svg></span><div><b>AI 搜索优化（GEO） →</b><p>提升品牌在 AI 搜索与回答中的可见度</p></div></a></div></section></main><footer class="global-footer"><div class="wrap"><a href="index.html"><img src="assets/home/logo-footer.png" alt="渝欧数智" width="603" height="71"></a><span>重庆渝欧数智科技（集团）股份有限公司 · 股票代码 873017</span></div></footer><dialog class="contact-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-offer"><button class="dialog-close" aria-label="关闭弹窗">×</button><p class="eyebrow">先免费试一次</p><h2 id="dialog-title">免费第一步</h2><p class="dialog-offer" id="dialog-offer"></p><div class="dialog-label">你提供</div><p data-give=""></p><div class="dialog-label">你拿到</div><p data-get=""></p><img class="dialog-qr" src="assets/ai-org/联系二维码_官网现用.jpg" alt="杨儒鸿联系二维码"><p class="dialog-sign"><strong>杨儒鸿</strong>渝欧数智 AI 应用研究院 负责人</p><p class="dialog-note">扫码后，告诉我们你想体验的方案。</p></dialog>
+
+
+</body></html>

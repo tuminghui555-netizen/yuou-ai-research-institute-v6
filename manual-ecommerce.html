@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 电商运营 · 产品手册</title>
+<style>
+.ym{--ink:#121a26;--ink2:#4b5565;--ink3:#8b94a3;--line:#e7eaf0;--soft:#f5f7fb;--tint:#eef3ff;
+--ac:#2f6bff;--ac2:#1d4ed8;--acs:#e3ecff;--red:#e5484d;--reds:#fde8e8;--grn:#18a058;--grns:#e3f6eb;--amb:#b26b00;--ambs:#fff3d6;--nt:#6b4cff;--nts:#f1edff;
+font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);line-height:1.75;font-size:15px;background:#fff}
+html,body{margin:0;overflow-x:hidden;background:#fff}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+.ym *{box-sizing:border-box}
+.ym a{color:inherit;text-decoration:none}
+.ym .todo{background:var(--ambs);color:var(--amb);border-radius:6px;padding:0 6px;font-weight:600;font-size:13px}
+
+/* 顶栏：返回 + 标题 + 轻量转化按钮 */
+.ym .top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.ym .top-in{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 24px;gap:12px}
+.ym .top-l{display:flex;align-items:center;gap:14px;font-size:14px;min-width:0}
+.ym .back{color:var(--ink3)}
+.ym .top-l b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ym .top-r{display:flex;gap:10px;align-items:center}
+.ym .btn{display:inline-flex;align-items:center;border-radius:999px;font-weight:600;font-size:13px;padding:7px 16px;white-space:nowrap;cursor:pointer;border:1px solid transparent}
+.ym .btn.pri{background:var(--ac);color:#fff}
+.ym .btn.ghost{border-color:var(--nt);color:var(--nt);background:#fff}
+.ym .btn.ghost.on{background:var(--nt);color:#fff}
+
+/* 布局：左目录 + 正文 */
+.ym .layout{max-width:1040px;margin:0 auto}
+.ym main{padding:40px 48px 80px;min-width:0}
+
+
+.ym .kicker{color:var(--ac);font-weight:700;font-size:13px;letter-spacing:1px}
+.ym h1{font-size:34px;margin:6px 0 10px;line-height:1.3}
+.ym .lead{font-size:17px;color:var(--ink2);margin:0 0 28px;max-width:760px}
+.ym h2{font-size:24px;margin:0 0 6px}
+.ym .h2sub{color:var(--ink2);margin:0 0 24px}
+.ym .blk{padding:48px 0;border-top:1px solid var(--line)}
+.ym .blk:first-of-type{border-top:none;padding-top:0}
+
+/* 概述：三条线的流程图 */
+.ym .map{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ym .lane{background:var(--soft);border-radius:16px;padding:20px}
+.ym .lane h4{margin:0 0 12px;font-size:16px}
+.ym .lane .st{display:flex;flex-direction:column;gap:8px}
+.ym .lane .st span{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;position:relative}
+.ym .lane .st span:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-17px;transform:translateX(-50%);color:var(--ink3);font-size:12px;z-index:1}
+.ym .lane .st span.out{background:var(--acs);border-color:transparent;color:var(--ac2);font-weight:600}
+
+/* 功能详解 */
+.ym .feat{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;padding:32px 0;border-top:1px dashed var(--line)}
+.ym .feat:first-of-type{border-top:none}
+.ym .feat>*{min-width:0}
+.ym .feat h3{font-size:20px;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.ym .feat h3 .no{width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.ym .feat .one{color:var(--ink2);margin:0 0 16px;font-size:15px}
+.ym .kv{display:grid;grid-template-columns:64px 1fr;gap:10px 12px;font-size:14px;margin-bottom:14px}
+.ym .kv .k{color:var(--ink3)}
+.ym .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ym .flow span{background:var(--acs);color:var(--ac2);border-radius:8px;padding:3px 10px;font-size:13px}
+.ym .flow em{font-style:normal;color:var(--ink3)}
+.ym .fine{font-size:12px;color:var(--ink3)}
+
+/* 截图位 */
+.ym .shot{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px rgba(30,60,140,.09);overflow:hidden}
+.ym .shot .cap{position:absolute;right:10px;top:6px;background:rgba(255,255,255,.95);border:1px dashed var(--ink3);color:var(--ink3);font-size:11px;border-radius:999px;padding:0 10px}
+.ym .bar{display:flex;gap:6px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink3)}
+.ym .bar i{width:8px;height:8px;border-radius:50%;background:#e3e6ec}
+.ym .body{padding:12px 14px 14px}
+.ym .row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.ym .row:last-child{border:none}
+.ym .pill{border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600;white-space:nowrap}
+.ym .pill.r{background:var(--reds);color:var(--red)}.ym .pill.g{background:var(--grns);color:var(--grn)}.ym .pill.a{background:var(--ambs);color:var(--amb)}
+.ym .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ym .kpi{background:var(--soft);border-radius:8px;padding:8px}
+.ym .kpi small{display:block;font-size:11px;color:var(--ink3)}.ym .kpi b{font-size:14px}
+.ym .ask{background:var(--soft);border-radius:8px;padding:8px 10px;font-size:12px;margin-top:10px}
+.ym .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ym .thumb{aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#dfe7f7,#f4f6fb);display:flex;align-items:flex-end;padding:6px;font-size:11px;color:var(--ink2)}
+
+/* 交付流程 */
+.ym .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.ym .step{padding:0 14px 0 0}
+.ym .step .dot{width:34px;height:34px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px;position:relative;z-index:1}
+.ym .step:not(:last-child) .dot::after{content:"";position:absolute;left:34px;top:16px;height:2px;width:calc(100% * 4);max-width:220px;background:var(--acs);z-index:-1}
+.ym .step h5{font-size:16px;margin:0 0 4px}
+.ym .step p{font-size:13px;color:var(--ink2);margin:0}
+
+/* FAQ */
+.ym details{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.ym summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between}
+.ym summary::-webkit-details-marker{display:none}
+.ym summary::after{content:"+";color:var(--ink3);font-weight:400}
+.ym details[open] summary::after{content:"−"}
+.ym details p{margin:10px 0 0;color:var(--ink2);font-size:14px}
+
+/* 尾部 */
+.ym .end{margin-top:56px;background:var(--tint);border-radius:18px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.ym .end b{font-size:18px}.ym .end p{margin:4px 0 0;color:var(--ink2);font-size:14px}
+.ym .end .btn{font-size:15px;padding:11px 24px}
+
+@media (max-width:900px){
+  .ym main{padding:28px 18px 60px}
+ .ym .map,.ym .feat{grid-template-columns:1fr}
+ .ym .steps{grid-template-columns:1fr 1fr;gap:24px}
+ .ym .step .dot::after{display:none}
+ .ym .top-r .ghost{display:none}
+ .ym h1{font-size:27px}
+}
+</style>
+<link rel="stylesheet" href="assets/manual.css"><script src="assets/manual.js" defer=""></script><link rel="stylesheet" href="assets/研究院.css"><link rel="stylesheet" href="assets/手册阅读.css"></head>
+<body class="manual-document" data-manual="ecommerce"><div class="reader-bar"><div><a class="reader-back" href="ecommerce.html">← 返回产品介绍</a><strong>AI 电商运营</strong><span>渝欧数智 AI 应用研究院</span></div></div><div class="reader-cover"><div class="reader-inner"><div><span class="reader-label">研究院 · 产品手册</span><h1>AI 电商运营</h1><p>从每天的经营日报到跨平台比价，按功能查看数据、操作方式与交付结果。</p></div><div class="reader-book" aria-hidden="true"><i></i><b>电商运营</b></div></div></div><nav class="reader-nav" aria-label="手册章节"><div><a href="#overview"><small>01</small>产品概述</a><a href="#features"><small>02</small>功能详解</a><a href="#deliver"><small>03</small>交付流程</a><a href="#faq"><small>04</small>常见问题</a></div></nav>
+<div class="ym" id="ym">
+
+<div class="layout">
+
+<main>
+
+<!-- 概述 -->
+<div class="blk" id="overview">
+  <div class="kicker">产品概述</div>
+  <h2>生意做大，不靠堆人，也不赌能人</h2>
+  <p class="lead">所有平台、所有店铺、整个市场的数据每天自动汇齐，按你自己的标准挑出问题，把最好那家店的做法推到每一家店。跟钱有关的动作，人工确认后才执行。</p>
+  <div class="map">
+    <div class="lane"><h4>看清自己的生意</h4><div class="st"><span>店铺后台数据</span><span>按你的标准诊断</span><span class="out">日报 · 问题清单</span></div></div>
+    <div class="lane"><h4>看清整个市场</h4><div class="st"><span>关键词 / 控价表</span><span>各平台比价</span><span class="out">价格表 · 破价证据</span></div></div>
+    <div class="lane"><h4>多开店也跟得上</h4><div class="st"><span>最好那家店的做法</span><span>提炼成标准</span><span class="out">每家店照着做 · 新品备好待确认</span></div></div>
+  </div>
+</div>
+
+<!-- 功能详解 -->
+<div class="blk" id="features">
+  <div class="kicker">功能详解</div>
+  <h2>七项功能</h2>
+  <p class="h2sub">从哪项开始用都行，也可以只上其中几项。</p>
+
+  <div class="feat" id="f1">
+    <div>
+      <h3><span class="no">1</span>数据自动收齐</h3>
+      <p class="one">每天半夜自动进店铺后台，把经营数据收回来。不用开接口，也不用先建数仓。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>店多、平台多，每天要专人下报表的团队</span>
+        <span class="k">流程</span><div class="flow"><span>授权店铺</span><em>→</em><span>定时采集</span><em>→</em><span>数据入库</span></div>
+      </div>
+      <div class="fine">支持拼多多、天猫、京东；抖音、小红书、得物持续拓展中 · 单店一次几分钟到十几分钟</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;采集记录</div><div class="body">
+      <div class="row"><span>02:00　拼多多 · 12 家店</span><span class="pill g">完成</span></div>
+      <div class="row"><span>02:40　天猫 · 8 家店</span><span class="pill g">完成</span></div>
+      <div class="row"><span>03:15　京东 · 5 家店</span><span class="pill g">完成</span></div>
+      <div class="row"><span>03:30　D 店读取失败</span><span class="pill a">已标出，待重试</span></div>
+    </div><span class="cap">示意 · 换采集记录截图</span></div>
+  </div>
+
+  <div class="feat" id="f2">
+    <div>
+      <h3><span class="no">2</span>经营日报</h3>
+      <p class="one">早上一份日报，所有店的生意一眼看清。想看别的数，直接问 AI。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>老板、运营负责人每天看全盘</span>
+        <span class="k">流程</span><div class="flow"><span>数据汇总</span><em>→</em><span>生成日报</span><em>→</em><span>推送到手</span></div>
+      </div>
+      <div class="fine">推送到飞书、企业微信、钉钉 · 从收数到推送，人工投入 0 分钟</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;经营日报</div><div class="body">
+      <div class="kpis">
+        <div class="kpi"><small>销售额</small><b>¥128万</b></div><div class="kpi"><small>订单</small><b>9,832</b></div>
+        <div class="kpi"><small>花费</small><b>¥18.6万</b></div><div class="kpi"><small>投产比</small><b>3.42</b></div>
+      </div>
+      <div class="ask">问：上周哪家店投产比掉得最多？<br>答：D 店，从 3.1 降到 1.8，主要是商品 1032 的推广花费涨了。</div>
+    </div><span class="cap">示意 · 换日报截图（脱敏）</span></div>
+  </div>
+
+  <div class="feat" id="f3">
+    <div>
+      <h3><span class="no">3</span>按你的标准诊断</h3>
+      <p class="one">你家的合格线写进系统，不达标的店和商品每天自动挑出来，附上原因。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>推广计划多、人盯不过来的团队</span>
+        <span class="k">流程</span><div class="flow"><span>写入标准</span><em>→</em><span>每日诊断</span><em>→</em><span>人工处理</span></div>
+      </div>
+      <div class="fine">推广诊断先支持拼多多 · 每条推广计划 7 项指标逐条看，人工投入 0 分钟</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;推广诊断</div><div class="body">
+      <div class="row"><span>商品 1032　投产比 1.8 · 你的合格线 2.5</span><span class="pill r">不达标</span></div>
+      <div class="row"><span>商品 3318　投产比 2.2 · 你的合格线 2.5</span><span class="pill r">不达标</span></div>
+      <div class="row"><span>商品 2201　投产比 2.7 · 你的合格线 2.5</span><span class="pill g">达标</span></div>
+    </div><span class="cap">示意 · 换诊断清单截图</span></div>
+  </div>
+
+  <div class="feat" id="f4b">
+    <div>
+      <h3><span class="no">4</span>标杆店对标</h3>
+      <p class="one">所有店放在同一套口径下比，找出最好那家的做法，提炼成标准推到每一家店。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>店多、好打法靠个人摸索、新店起量慢的团队</span>
+        <span class="k">流程</span><div class="flow"><span>日报产出</span><em>→</em><span>AI 横向对比</span><em>→</em><span>形成标准</span></div>
+      </div>
+      <div class="fine">在经营日报基础上运行，不用另外准备数据</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;店铺对比</div><div class="body">
+      <div class="row"><span>A 店　投产比 3.6 · 转化 4.1%</span><span class="pill g">标杆</span></div>
+      <div class="row"><span>B 店　投产比 2.4 · 转化 2.8%</span><span class="pill a">差在转化</span></div>
+      <div class="row"><span>C 店　投产比 1.9 · 转化 3.9%</span><span class="pill a">差在推广</span></div>
+    </div><span class="cap">示意 · 换对比截图</span></div>
+  </div>
+
+  <div class="feat" id="f4">
+    <div>
+      <h3><span class="no">5</span>市场价格监控</h3>
+      <p class="one">一个关键词，本品和竞品在各平台卖多少钱，一张表看清。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>定价前看行情、盯对手调价</span>
+        <span class="k">流程</span><div class="flow"><span>输入关键词</span><em>→</em><span>全网抓价</span><em>→</em><span>价格对比表</span></div>
+      </div>
+      <div class="fine">覆盖天猫、淘宝、京东，含拼多多竞品价格分析 · 拼多多一轮巡检 5,389 条链接、48 家竞店，不用人守（内部运行数据）</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;关键词「某品类」</div><div class="body">
+      <div class="row"><span>本品旗舰店 · 天猫</span><span>¥239</span></div>
+      <div class="row"><span>对手 A · 京东</span><span>¥225</span></div>
+      <div class="row"><span>对手 B · 拼多多</span><span>¥199</span></div>
+      <div class="row"><span>对手 C · 淘宝</span><span>¥248</span></div>
+    </div><span class="cap">示意 · 换价格对比截图</span></div>
+  </div>
+
+  <div class="feat" id="f5">
+    <div>
+      <h3><span class="no">6</span>控价提醒</h3>
+      <p class="one">对着你的控价表逐条比价，谁破了价马上提醒，截图证据同时留下。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>品牌方管经销商、管渠道价格</span>
+        <span class="k">流程</span><div class="flow"><span>上传控价表</span><em>→</em><span>逐条比价</span><em>→</em><span>破价提醒</span></div>
+      </div>
+      <div class="fine">结算价、会员价、秒杀价、凑单价分开记录 · 提醒推送到飞书、企业微信、钉钉或邮箱</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;价格提醒</div><div class="body">
+      <div class="row"><span>规格 A · 京东某店　¥219（控价 ¥239）</span><span class="pill r">破价</span></div>
+      <div class="row"><span>规格 B · 淘宝某店　¥158（控价 ¥169）</span><span class="pill r">破价</span></div>
+      <div class="thumbs" style="margin-top:10px"><div class="thumb">截图证据 1</div><div class="thumb">截图证据 2</div><div class="thumb">查看全部</div></div>
+    </div><span class="cap">示意 · 换破价提醒截图</span></div>
+  </div>
+
+  <div class="feat" id="f6">
+    <div>
+      <h3><span class="no">7</span>后台自动操作</h3>
+      <p class="one">照着店里卖得好的商品，新品的上架方案和图片自动备好，存进草稿箱，人工确认后上架。</p>
+      <div class="kv">
+        <span class="k">适合</span><span>开新店、铺新平台、批量上新</span>
+        <span class="k">流程</span><div class="flow"><span>选参照商品</span><em>→</em><span>方案备好</span><em>→</em><span>确认上架</span></div>
+      </div>
+      <div class="fine">商品上架已支持拼多多，从收到需求到信息填好约 10 分钟 · 推广调整、活动提报、评价回复持续补充中</div>
+    </div>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;待确认新品</div><div class="body">
+      <div class="thumbs"><div class="thumb">新品 01</div><div class="thumb">新品 02</div><div class="thumb">新品 03</div></div>
+      <div class="row" style="margin-top:8px"><span>3 个新品方案已备好</span><span class="pill a">等你确认</span></div>
+    </div><span class="cap">示意 · 换新品草稿截图</span></div>
+  </div>
+</div>
+
+<!-- 交付流程 -->
+<div class="blk" id="deliver">
+  <div class="kicker">开始使用</div>
+  <h2>交付流程</h2>
+  <p class="h2sub">标准版约 2 周，全套版 3–4 周。</p>
+  <div class="steps">
+    <div class="step"><div class="dot">1</div><h5>准备材料</h5><p>店铺账号授权、一台运行设备、你家的经营规则。</p></div>
+    <div class="step"><div class="dot">2</div><h5>驻场配置</h5><p>我们上门调研、部署、写规则，标准版最多驻场 3 天。</p></div>
+    <div class="step"><div class="dot">3</div><h5>测试跑通</h5><p>每家店连续 3 天自动收数入库，日报按时推送。</p></div>
+    <div class="step"><div class="dot">4</div><h5>正式使用</h5><p>每天早上收到日报，问题按你的标准标出来。</p></div>
+  </div>
+</div>
+
+<!-- 常见问题 -->
+<div class="blk" id="faq">
+  <h2>常见问题</h2>
+  <p class="h2sub">更多问题，欢迎直接咨询。</p>
+  <details><summary>会不会被平台封号？</summary><p>不走破解接口，在你自己的电脑上用你自己的账号，像运营一样打开后台。集团内部多个品牌、多个平台的店铺每天都在跑，遇到验证码就停下交给人处理。</p></details>
+  <details><summary>数据放在哪？你们能看到吗？</summary><p>部署在你自己的设备和账号上，数据进你公司自己的数据库。交付后我们不保留访问权限。</p></details>
+  <details><summary>AI 给的结论准不准？</summary><p>数字按规则算，很稳；诊断建议按你写进去的标准来，越用越贴合。改价、调推广这类动钱的动作留一道人工确认，这是风控设计。</p></details>
+  <details><summary>平台改版了，谁来修？</summary><p>维护期内我们负责，工作日当天响应，一般一两天恢复。首年维护含在部署费里。</p></details>
+  <details><summary>用起来以后还要花什么钱？</summary><p>主要是你那边 AI 工具的订阅或积分，每天消耗很少。第二年起有年维护费。</p></details>
+</div>
+
+<div class="end">
+  <div><b>想先看看效果？</b><p>一个关键词，或一份店铺报表，免费做一次《电商经营体检》。</p></div>
+  <a class="btn pri" href="ecommerce.html#start">查看免费体检内容</a>
+</div>
+
+</main>
+</div>
+</div>
+
+
+</body></html>
